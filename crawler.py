@@ -30,8 +30,17 @@ def get_artists(base):
         if link.find('img') not in link:
             print(link.text)
 
+def get_songs(artist):
+    resp = requests.get(artist)
+    soup = BeautifulSoup(resp.content, "lxml")
+    song_list = soup.find("table", attrs = {"class" : "tracklist"})
+    songs = song_list.find_all('a')
+    for song in songs:
+        print(song.text)
+
 def main():
     get_artists('https://www.songlyrics.com/top-artists-lyrics.html')
+    get_songs('https://www.songlyrics.com/eminem-lyrics/')
 
 if __name__=="__main__":
     main()
