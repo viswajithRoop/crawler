@@ -38,9 +38,16 @@ def get_songs(artist):
     for song in songs:
         print(song.text)
 
+def get_lyrics(song):
+    resp = requests.get(song)
+    soup = BeautifulSoup(resp.content, "lxml")
+    lyrics = soup.find("p", attrs = {"id" : "songLyricsDiv"})
+    print(lyrics.text)
+
 def main():
     get_artists('https://www.songlyrics.com/top-artists-lyrics.html')
     get_songs('https://www.songlyrics.com/eminem-lyrics/')
+    get_lyrics('https://www.songlyrics.com/eminem/survival-lyrics/')
 
 if __name__=="__main__":
     main()
