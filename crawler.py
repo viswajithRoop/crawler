@@ -2,17 +2,26 @@ import argparse
 import logging
 import os
 
-
 import requests
 from bs4 import BeautifulSoup
+
+import db
 
 logger = None
 
 def parse_args():
     parser = argparse.ArgumentParser(description = "web crawler")
     parser.add_argument("-d", "--debug", help = "Enable debug logging", action = "store_true")
-    parser.add_argument("-c", "--crawl", help = "Enable crawl and write the file", action = "store_true")
+    parser.add_argument("-download", help = "creates a directory for lyrics", action = "store_true")
+    parser.add_argument("--db", help = "Name of the data base", action = "store", default= "lyrics")
+    subcommands = parser.add_subparsers(help = "commands", dest = "command", required= True)
+    subcommands.add_parser("initdb", help= "Intializing the database")
+    subcommands.add_parser("crawl", help = "Crawling")
+    subcommands.add_parser("web", help = "start browser")
+    subcommands.add_parser("add_directory", help = "Create a diretory to store lyrics")
     return parser.parse_args()
+
+
 
 def configure_logging(level = logging.DEBUG):
     global logger
@@ -24,6 +33,8 @@ def configure_logging(level = logging.DEBUG):
     screen_handler.setFormatter(formatter)
     logger.addHandler(screen_handler)
 
+
+
 def get_artists(base):
     artists = {}
     resp = requests.get(base)
@@ -34,6 +45,7 @@ def get_artists(base):
         artists[link.text] = link.a['href']
     return artists
 
+
 def get_songs(artist):
     songs = {}
     resp = requests.get(artist)
@@ -43,6 +55,7 @@ def get_songs(artist):
     for song in songs_links[:3]:
         songs[song.text] = song['href']
     return songs
+
 
 def get_lyrics(song):
     resp = requests.get(song)
@@ -63,17 +76,44 @@ def crawl(download_dir):
             file.write(get_lyrics(song_link))
             file.close
     logger.info("crawling completed")
+
+
+def add_database():
+    for artist_name, artist_link in get_artists('http://www.songlyrics.com/top-artists-lyrics.html').items():
+        last_id = db.add_artist(artist_name)
+        for song, song_link in get_songs(artist_link).items():
+            lyrics = get_lyrics(song_link)
+            db.add_song(song,last_id, lyrics)
+
+
+def create_table():
+    conn = db.get_connection()
+    with conn.cursor() as curs:
+        with open("init.sql") as f:
+            sql = f.read()
+            curs.execute(sql)
+    conn.commit()
+    conn.close()
+
             
 def main():
-
     args = parse_args()
     if args.debug:
-        configure_logging()
+        configure_logging(logging.DEBUG)
     else:
         configure_logging(logging.INFO)
-    if args.crawl:
+    if args.command == "initdb":
+        logger.info("Initializing the database")
+        create_table()
+        logger.info("Database initialized")
+    if args.command == "crawl":
+        logger.info("Crawling")
+        add_database()
+        logger.info("Crawling completed")
+    if args.download:
+        logger.info("Crawling to directory")
         crawl("artists")
 
-    
+        
 if __name__== "__main__":
     main()
