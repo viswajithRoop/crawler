@@ -6,6 +6,8 @@ import requests
 from bs4 import BeautifulSoup
 
 import db
+import web
+import sa
 
 logger = None
 
@@ -86,6 +88,14 @@ def add_database():
             db.add_song(song,last_id, lyrics)
 
 
+def add_artists_sa():
+    for artist_name, artist_link in get_artists('http://www.songlyrics.com/top-artists-lyrics.html').items():
+        artist = sa.add_artist(artist_name)
+        for song, song_link in get_songs(artist_link).items():
+            lyrics = get_lyrics(song_link)
+            sa.add_song(song,lyrics, artist)
+
+
 def create_table():
     conn = db.get_connection()
     with conn.cursor() as curs:
@@ -104,15 +114,17 @@ def main():
         configure_logging(logging.INFO)
     if args.command == "initdb":
         logger.info("Initializing the database")
-        create_table()
+        sa.create_table()
         logger.info("Database initialized")
     if args.command == "crawl":
         logger.info("Crawling")
-        add_database()
+        add_artists_sa()
         logger.info("Crawling completed")
     if args.download:
         logger.info("Crawling to directory")
         crawl("artists")
+    if args.command == "web":
+        web.app.run()
 
         
 if __name__== "__main__":
