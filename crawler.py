@@ -43,7 +43,7 @@ def get_artists(base):
     soup = BeautifulSoup(resp.content, "lxml")
     track_list = soup.find("table", attrs = {"class" : "tracklist"})
     track_link = track_list.find_all('h3')
-    for link in track_link[0:5]:
+    for link in track_link[0:10]:
         artists[link.text] = link.a['href']
     return artists
 
@@ -54,7 +54,7 @@ def get_songs(artist):
     soup = BeautifulSoup(resp.content, "lxml")
     song_list = soup.find("table", attrs = {"class" : "tracklist"})
     songs_links = song_list.find_all('a')
-    for song in songs_links[:3]:
+    for song in songs_links[:5]:
         songs[song.text] = song['href']
     return songs
 

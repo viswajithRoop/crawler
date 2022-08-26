@@ -1,0 +1,103 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>welcome to lyrics!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+</head>
+<!-- <style type = "text/css">
+    .artists{
+        background-color: rgb(233, 233, 233);
+        
+    }
+    h1{
+        color: darkslategray;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 800;
+    }
+    h2.heading1{
+        font-family: Arial, Helvetica, sans-serif;
+        color: darkslategray;
+        font-weight: bold;
+    }
+    a{
+        text-decoration: none; 
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        color: rgb(78, 99, 99);
+
+    }
+    ol{
+        color:rgb(78, 99, 99);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    h2.headng2{
+        color: darkslategray;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+    li{
+        border: 2px double ;
+        border-color: rgb(245, 245, 245);
+        border-style: groove;
+    }
+    li:hover{
+        color:black ;
+    }
+    .intro{
+        color:darkslategray;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 900;
+    }
+    .firstcol{
+        background-color: rgb(233, 233, 233);
+    }
+    .secondcol{
+        background-color: rgb(221, 218, 218);
+    }
+</style> -->
+<body>
+    <div class="container">
+    <div class="row">
+    <div class="col main">
+        <h1 class="main"> Artists,songs and lyrics! </h1>
+
+    </div>
+    </div>
+    <br class="br">
+
+    <div class="row">
+    
+        <div class="col-3 firstcol">
+            {% block firstcol %}
+           
+            <h3 class="intro"> <br>Welcome to </h3>
+            <h4 class="intro">Artists, songs and lyrics..</h4>
+            <p class="introtext"> <br>We regualarly crawl various sites on the net to get you the freshest lyrics out there. These are available classified using the artist name.
+
+            </p>
+            {% endblock %}
+        </div>
+    
+        <div class ="col-9 secondcol">
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    {% block content %}
+    {%endblock%}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        <hr/>
+       <em>Copyright by viswajith 2022, All right reserved</em>
+    </div>  
+    </div>
+   </body>
+</html>

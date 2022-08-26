@@ -1,6 +1,6 @@
 
-from flask import Flask, url_for
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, url_for,render_template
+from flask_sqlalchemy import SQLAlchemy 
 
 app = Flask("lyrics")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///lyrics'
@@ -26,30 +26,42 @@ class Songs(db.Model):
     def __repr__(self):
         return f"Artists('{self.name}')"
 
+
 @app.route("/")
 def index():
     artists = Artists.query.all()
-    formatted = []
-    for i in artists:
-        target = url_for("artists", artist_id = i.id)
-        link = f'<a href="{target}">{i.name}</a>'
-        formatted.append(f"<li>{link}</li>")
-    return "<ul>" + "".join(formatted) + "</ul>"
+    # formatted = []
+    # for i in artists:
+    #     target = url_for("artists", artist_id = i.id)
+    #     link = f'<a href="{target}">{i.name}</a>'
+    #     formatted.append(f"<li>{link}</li>")
+    return render_template("artist.html", artists = artists)
+    #return "<ul>" + "".join(formatted) + "</ul>"
 
 @app.route("/artist/<int:artist_id>")
 def artists(artist_id):
     songs = Songs.query.filter_by(artist_id = artist_id).all()
-    formatted = []
-    for i in songs:
-        target = url_for("songs",song_id=i.id)
-        link = f'<a href="{target}">{i.name}</a>'
-        formatted.append(f"<li>{link}</li>")
-    return "<ul>" + "".join(formatted) + "</ul>"
+    artist = Artists.query.get(artist_id)
+    # formatted = []
+    # for i in songs:
+    #     target = url_for("songs",song_id=i.id)
+    #     link = f'<a href="{target}">{i.name}</a>'
+    #     formatted.append(f"<li>{link}</li>")
+    return render_template("songs.html", songs = songs, artist_name=artist.name)
+    #return "<ul>" + "".join(formatted) + "</ul>"
     
 
 @app.route("/song/<int:song_id>")
 def songs(song_id):
     song = Songs.query.filter_by(id = song_id).first()
     lyrics = song.lyrics.replace("\n","<br>")
-    return f"""<h2>{song.name}</h2>
-{lyrics}"""
+    songs = song.artist.songs
+    song_name = song.name
+    artist = song.artist.name
+
+    #return f"""<h2>{song.name}</h2>
+#{lyrics}"""
+    return render_template("lyrics.html", lyrics = lyrics, songs=songs,song_name=song_name ,artist=artist)
+
+
+

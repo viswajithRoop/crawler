@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block firstcol %}
+    <ul>
+        <h4><br> <span style="font-family: Arial, Helvetica, sans-serif;font-weight: bold;color: rgb(78, 99, 99)">{{artist}}'s songs</span></h4>
+        {% for song in songs %}
+        {%if song.name == song_name%}
+           <li > <span style="color:rgb(130, 145, 145);font-family: Arial, Helvetica, sans-serif;font-weight: bold;">{{song.name}}</span></li>
+        {%else%}
+        <li> <a href="{{url_for('songs', song_id=song.id)}}">{{song.name}}</a>
+        </li>
+        {%endif%}
+        {%endfor%}
+    </ul>
+{%endblock%}
+
+
+{% block content %}
+<p> 
+    {% autoescape off %}
+    <h2><center><span style="font-family: Arial, Helvetica, sans-serif;font-weight: bold;color: rgb(58, 68, 68)">{{song_name}}</span></center></h2>
+    <em><center><span style="font-family: Arial, Helvetica, sans-serif;font-weight: 500;color: rgb(46, 51, 51)">{{lyrics}}</span></center></em>
+    {% endautoescape %}</p>
+{%endblock%}

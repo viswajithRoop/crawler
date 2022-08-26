@@ -1,0 +1,69 @@
+.artists{
+    background-color: rgb(233, 233, 233);
+    
+}
+.main{
+    background-color: darkslategray;
+}
+h1{
+    color: rgb(246, 248, 248);
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+}
+h3.heading1{
+    font-family: Arial, Helvetica, sans-serif;
+    color: darkslategray;
+    font-weight:800;
+}
+.br{
+    line-height: 5px;
+}
+.brsong{
+    line-height: 50px;
+}
+a{
+    text-decoration: none; 
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: rgb(78, 99, 99);
+
+}
+ol{
+    color:rgb(78, 99, 99);
+    font-family: Arial, Helvetica, sans-serif;
+}
+h3.headng2{
+    color: darkslategray;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+}
+li{
+    border: 2px double ;
+    border-color: rgb(245, 245, 245);
+    border-style: outset;
+}
+li:hover{
+    color:black ;
+}
+.intro{
+    color:darkslategray;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+}
+.introtext{
+    color:darkslategray;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+}
+.firstcol{
+    background-color: rgb(233, 233, 233);
+}
+.secondcol{
+    background-color: rgb(221, 218, 218);
+}
+.artsongs{
+    color: darkslategray;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+}
