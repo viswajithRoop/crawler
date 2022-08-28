@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block firstcol %}
     <ul>
-        <h4><br> <span style="font-family: Arial, Helvetica, sans-serif;font-weight: bold;color: rgb(78, 99, 99)">{{artist}}'s songs</span></h4>
+        <h4><br> <span style="font-family: Arial, Helvetica, sans-serif;font-weight: bold;color: rgb(78, 99, 99)">{{artist_name}}'s songs</span></h4>
         {% for song in songs %}
         {%if song.name == song_name%}
            <li > <span style="color:rgb(130, 145, 145);font-family: Arial, Helvetica, sans-serif;font-weight: bold;">{{song.name}}</span></li>

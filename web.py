@@ -57,11 +57,11 @@ def songs(song_id):
     lyrics = song.lyrics.replace("\n","<br>")
     songs = song.artist.songs
     song_name = song.name
-    artist = song.artist.name
+    artist_name = song.artist.name
 
     #return f"""<h2>{song.name}</h2>
 #{lyrics}"""
-    return render_template("lyrics.html", lyrics = lyrics, songs=songs,song_name=song_name ,artist=artist)
+    return render_template("lyrics.html", lyrics = lyrics, songs=songs,song_name=song_name ,artist_name=artist_name)
 
 
 
