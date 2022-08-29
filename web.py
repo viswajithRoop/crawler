@@ -1,5 +1,6 @@
 
 from flask import Flask, url_for,render_template
+import time
 from flask_sqlalchemy import SQLAlchemy 
 
 app = Flask("lyrics")
@@ -63,5 +64,10 @@ def songs(song_id):
 #{lyrics}"""
     return render_template("lyrics.html", lyrics = lyrics, songs=songs,song_name=song_name ,artist_name=artist_name)
 
+@app.route("/lyrics/<int:song_id>")
+def lyrics(song_id):
+    time.sleep(2)
+    song = Songs.query.filter_by(id = song_id).first()
+    return render_template("song.html", song=song)
 
 
