@@ -57,13 +57,15 @@ li:hover{
     font-weight: 400;
 }
 .firstcol{
-    background-color: rgb(233, 233, 233);
+    background-color: rgb(230, 230, 230);
 }
 .secondcol{
-    background-color: rgb(221, 218, 218);
+    background-color: rgb(237, 237, 237);
 }
 .artsongs{
     color: darkslategray;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 800;
+}.songname1{
+    color:rgb(130, 145, 145);font-family: Arial, Helvetica, sans-serif;font-weight: bold;
 }
